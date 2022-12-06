@@ -20,11 +20,21 @@
         - ltm-pools
       register: bigip_device_facts
 
-    - name: "View complete output"
-      debug: "msg={{bigip_device_facts}}"
+#    - name: "View complete output"
+#      debug: "msg={{bigip_device_facts}}"
 
     - name: "Show members belonging to pool"
       debug: "msg={{item}}"
       loop: "{{bigip_device_facts.ltm_pools | community.general.json_query(query_string)}}"
       vars:
         query_string: "[?name=='http_pool'].members[*].name[]"
+
+    - name: "Disable pool members"
+      f5networks.f5_modules.bigip_pool_member:
+        provider: "{{provider}}"
+        state: "disabled"
+        name: "{{hostvars[item].inventory_hostname}}"
+        host: "{{hostvars[item].ansible_host}}"
+        port: "80"
+        pool: "http_pool"
+      loop: "{{ groups['web'] }}"
