@@ -4,7 +4,7 @@
   connection: local
   gather_facts: false
   
-    tasks:
+  tasks:
     - name: Setup provider
       set_fact:
         provider:
