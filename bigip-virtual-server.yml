@@ -4,7 +4,7 @@
   connection: local
   gather_facts: false
 
-tasks:
+  tasks:
     - name: ADD VIRTUAL SERVER
       f5networks.f5_modules.bigip_virtual_server:
         provider:
