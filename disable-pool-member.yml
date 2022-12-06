@@ -12,10 +12,17 @@
           password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
+
+    - name: Discover pool names
       f5networks.f5_modules.bigip_device_info:
         provider: "{{provider}}"
         gather_subset:
         - ltm-pools
+      register: bigip_device_facts
+
+    - name: "View complete output"
+      debug: "msg={{bigip_device_facts}}"
+
     - name: "Show members belonging to pool"
       debug: "msg={{item}}"
       loop: "{{bigip_device_facts.ltm_pools | community.general.json_query(query_string)}}"
