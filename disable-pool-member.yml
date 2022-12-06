@@ -16,6 +16,7 @@
     - name: Discover pool names
       f5networks.f5_modules.bigip_device_info:
         provider: "{{provider}}"
+        partition: "student2"
         gather_subset:
         - ltm-pools
       register: bigip_device_facts
@@ -32,10 +33,10 @@
     - name: "Disable pool members"
       f5networks.f5_modules.bigip_pool_member:
         provider: "{{provider}}"
+        partition: "student2"
         state: "disabled"
         name: "{{hostvars[item].inventory_hostname}}"
         host: "{{hostvars[item].ansible_host}}"
         port: "80"
         pool: "http_pool"
       loop: "{{ groups['web'] }}"
-# Big hints here: https://docs.ansible.com/ansible/latest/collections/f5networks/f5_modules/bigip_pool_member_module.html
