@@ -19,6 +19,7 @@
         - name: CREATE NODES
           f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
+            partition: "student2"
             host: "{{hostvars[item].ansible_host}}"
             name: "{{hostvars[item].inventory_hostname}}"
           loop: "{{ groups['web'] }}"
@@ -26,6 +27,7 @@
         - name: CREATE POOL
           f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
+            partition: "student2"
             name: "http_pool"
             lb_method: "round-robin"
             monitors: "/Common/http"
@@ -34,6 +36,7 @@
         - name: ADD POOL MEMBERS
           f5networks.f5_modules.bigip_pool_member:
             provider: "{{provider}}"
+            partition: "student2"
             state: "present"
             name: "{{hostvars[item].inventory_hostname}}"
             host: "{{hostvars[item].ansible_host}}"
@@ -44,6 +47,7 @@
         - name: ADD VIRTUAL SERVER
           f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
+            partition: "student2"
             name: "vip"
             destination: "{{private_ip}}"
             port: "443"
@@ -56,18 +60,21 @@
         - name: DELETE VIRTUAL SERVER
           f5networks.f5_modules.bigip_virtual_server:
             provider: "{{provider}}"
+            partition: "student2"
             name: "vip"
             state: absent
 
         - name: DELETE POOL
           f5networks.f5_modules.bigip_pool:
             provider: "{{provider}}"
+            partition: "student2"
             name: "http_pool"
             state: absent
 
         - name: DELETE NODES
           f5networks.f5_modules.bigip_node:
             provider: "{{provider}}"
+            partition: "student2"
             name: "{{hostvars[item].inventory_hostname}}"
             state: absent
           loop: "{{ groups['web'] }}"
