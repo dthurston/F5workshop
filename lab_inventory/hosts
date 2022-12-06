@@ -5,6 +5,7 @@
 
 [lb]
 f5 ansible_host=18.191.195.54 private_ip=10.0.0.200 ansible_user=admin ansible_password=
+f5 ansible_admin=18.191.195.54 private_ip=10.0.0.200 ansible_user=admin ansible_password=
 
 [control]
 ansible ansible_host=107.23.192.217 ansible_user=ec2-user private_ip=172.16.207.49
