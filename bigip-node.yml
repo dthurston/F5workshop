@@ -7,7 +7,7 @@
     - name: CREATE NODES
       f5networks.f5_modules.bigip_node:
         provider:
-          server: "{{ansible_ip}}"
+          server: "{{ansible_host}}"
           user: "{{ansible_user}}"
           password: "{{ansible_password}}"
           server_port: 8443
