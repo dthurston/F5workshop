@@ -33,9 +33,9 @@
       f5networks.f5_modules.bigip_pool_member:
         provider: "{{provider}}"
         state: "disabled"
-# Big hints here: https://docs.ansible.com/ansible/latest/collections/f5networks/f5_modules/bigip_pool_member_module.html
         name: "{{hostvars[item].inventory_hostname}}"
         host: "{{hostvars[item].ansible_host}}"
         port: "80"
         pool: "http_pool"
       loop: "{{ groups['web'] }}"
+# Big hints here: https://docs.ansible.com/ansible/latest/collections/f5networks/f5_modules/bigip_pool_member_module.html
